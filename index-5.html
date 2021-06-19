@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<title>Employment</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+body,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+body{
+     background-image: url("https://besthqwallpapers.com/Uploads/31-10-2019/110142/thumb2-black-leather-texture-close-up-leather-textures-leather-texture-background-black-backgrounds.jpg");
+     }
+h1{font-color:white;}
+.btn {
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+
+.btn:hover {
+  background-color: RoyalBlue;
+}
+
+</style>
+<body class="w3-light-grey w3-content" style="max-width:1600px">
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-red w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container">
+    <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
+      <i class="fa fa-remove"></i>
+    </a>
+    <div style="padding-top:100.000%;position:relative;"><iframe src="https://gifer.com/embed/BKfh" width="100%" height="100%" style='position:absolute;top:0;left:0;' frameBorder="0" allowFullScreen></iframe></div><br><br>
+    <h4><b>THE MIRACLE : The Virtual Assistant ATL</b></h4>
+    <p class="w3-text-black">Can start by saying Hello, Can ask the below questions.</p>
+    <p>1. What are tinkering labs?</p><br>
+      <p>2. How is it different from normal scientific labs?</p><br>
+      <p>3. What is MYPAGE?</p><br>
+      <p>4. Show me list of commonly asked FAQs.</p><br>
+  </div>
+  <div class="w3-bar-block">
+ 
+    
+     
+
+  <script>
+// UI comp
+const startBtn = document.createElement("button");
+startBtn.innerHTML = "Start listening";
+const result = document.createElement("div");
+const processing = document.createElement("p");
+document.write("<body><h1></h1><p></p></body>");
+document.body.append(startBtn);
+document.body.append(result);
+document.body.append(processing);
+
+// speech to text
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let toggleBtn = null;
+if (typeof SpeechRecognition === "undefined") {
+	startBtn.remove();
+	result.innerHTML = "<b>Browser does not support Speech API. Please download latest chrome.<b>";
+} else {
+	const recognition = new SpeechRecognition();
+	recognition.continuous = true;
+	recognition.interimResults = true;
+	recognition.onresult = event => {
+		const last = event.results.length - 1;
+		const res = event.results[last];
+		const text = res[0].transcript;
+		if (res.isFinal) {
+			processing.innerHTML = "processing ....";
+
+			const response = process(text);
+			const p = document.createElement("p");
+			p.innerHTML = `You said: ${text} </br>Miracle said: ${response}`;
+			processing.innerHTML = "";
+			result.appendChild(p);
+
+			// text to speech
+			speechSynthesis.speak(new SpeechSynthesisUtterance(response));
+		} else {
+			processing.innerHTML = `listening: ${text}`;
+		}
+	}
+	let listening = false;
+	toggleBtn = () => {
+		if (listening) {
+			recognition.stop();
+			startBtn.textContent = "Start listening";
+		} else {
+			recognition.start();
+			startBtn.textContent = "Stop listening";
+		}
+		listening = !listening;
+	};
+	startBtn.addEventListener("click", toggleBtn);
+
+}
+
+// processor
+function process(rawText) {
+	let text = rawText.replace(/\s/g, "");
+	text = text.toLowerCase();
+	let response = null;
+	switch(text) {
+		case "whataretinkeringlabs":
+			response = "hi, how are you doing?"; break;
+		case "howisitdifferentfromnormalscientificlabs":
+			response = "My name's Miracle.";  break;
+                case "whatismypage":
+			response = "MYPAGE is a manifold Website,that is based on multiple topics like gaming,tinkering and tutorials.You could choose the pricing plan of the same and can learn and play.Indeed its a simple web plan which my creator Yash Kumar has designed.I am one of the main free feature of MYPAGE,that will explain you about all ATL technical know-how for new upcomers.";  break;
+		case "howareyou":
+			response = "I'm good."; break;
+                case "whoisyourboss":
+			response = "My creators are Kings of Mind,of Class 9c, DPS.They are my creator"; break;
+               
+		case "whattimeisit":
+			response = new Date().toLocaleTimeString(); break;
+		case "bye":
+			response = "Bye,Have a nice day,sir!!";
+			toggleBtn();
+               case "opengmail":
+			window.open(`https://mail.google.com/mail/u/0/#inbox`, "_blank");
+		return `Opening G-mail`;
+               case "openwhatsapp":
+			window.open(`https://web.whatsapp.com/`, "_blank");
+		return `Opening Web-whatsapp`;
+
+          case "opengoogledrive":
+			window.open(`https://drive.google.com/drive/my-drive`, "_blank");
+		return `Opening Google Drive`;
+       case "openyoutube":
+			window.open(`https://www.youtube.com/`, "_blank");
+		return `Opening Youtube Panel`;
+
+      case "opengoogleforms":
+			window.open(`https://docs.google.com/forms/u/0/`, "_blank");
+		return `Opening Google Forms`;
+case "what'smycurrentlocation":
+			window.open(`https://www.google.com/maps/search/duplex+no,c-52+rajul+township,jabalpur/@23.1184211,79.9751551,225m/data=!3m1!1e3`, "_blank");
+		return `This is the map of your current location`;
+
+
+
+
+}
+
+	if (!response) {
+		return `Sorry Sir, try again.`;
+	}
+	return response;
+}
+  </script>
+  
+
+ 
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+ <!-- Header -->
+  <header id="Karnataka">
+    <a href="#"><img src="https://www.brandcrowd.com/gallery/brands/pictures/picture14887314405039.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars" style="font-size:48px;color:white;" ></i></span>
+    <div class="w3-container">
+   
+  
+    </div>
+  </header>
+
+ <div style="padding-top:100.000%;position:relative;"><iframe src="https://gifer.com/embed/4P4O" width="100%" height="100%" style='position:absolute;top:0;left:0;' frameBorder="0" allowFullScreen></iframe></div><p>
+
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+
+</body>
+</html>
+
+      
+   
+<!-- End page content -->
+</div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+</script>
+
+</body>
+</html>
